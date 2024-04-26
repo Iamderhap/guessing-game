@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Game By Happiness</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js">
+
+    </script>
+</head>
+<body>
+    <div class="good">
+
+    </div>
+
+    <div class="guess">
+        <h2><span id="info">can you guess my secret word?</span> <span id="life"></span></h2>
+        <button class="btn" onclick="guessGame()">Guess</button>
+    </div>
+
+    <script>
+        const gameLife = 3;
+        const secretWord = "Happy";
+        let availableLife = 0
+        const life = document.getElementById("life")
+        const main = document.getElementById("guess")
+
+        function guessGame(){
+            let guess = prompt("Guess now and win!")
+            while(availableLife < gameLife){
+                if(guess == secretWord){
+                    const headings = document.createElement("h1")
+                    const text = document.createTextNode("You guessed right... winner!!!");
+                    headings.appendChild(text);
+                    headings.style.color = "green"
+                    document.getElementById ("info").style.display = "none";
+                    document.querySelector(".btn").disabled = true
+                    return document.querySelector(".good").appendChild(headings, main)
+                }else{
+                    availableLife++;
+                    if(availableLife < gameLife){
+                        life.innerHTML ="You have tried "+ availableLife + " out of "+ gameLife;
+                        life.style.color = "orange";
+                        document.querySelector(".btn").innerHTML = "Guess More"
+                        return document.getElementById(".info").innerHTML = "Use your head, you guessed wrong!"
+                    }else {
+                        document.getElementById("info").style.color = "red";
+                        life.style.display = "none";
+                        document.querySelector(".btn").innerHTML = "Guess"
+                        document.querySelector(".btn").style.cursor = "not-allowed"
+                        document.querySelector(".btn").disabled = true
+                        return document.getElementById("info").innerHTML = "Game over, you tried " + gameLife + " times!";
+
+                    }
+                }
+                
+            }
+        }
+    </script>
+</body>
+</html>
